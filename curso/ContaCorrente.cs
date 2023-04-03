@@ -1,4 +1,5 @@
 ﻿using bytebank;
+using bytebank.Titular;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +10,61 @@ namespace bytebank
 {
     public class ContaCorrente
     {
-        public bytebank.Titular.Cliente titular;
-        public string nome_agencia;
-        public int numero_agencia;
-        public string conta;
-        public double saldo;
+        // Attributes
+        public Cliente Titular { get; set; }
 
+        public string _conta;
+        public string Conta {
+            get { return _conta; }
+            set
+            {
+                if(value != null)
+                {
+                    _conta= value;
+                }
+            }
+        }
+        public int _numero_agencia;
+        public int Numero_Agencia {
+            get 
+            {
+                return _numero_agencia;
+            }
+            set 
+            {
+                if(value > 0)
+                {
+                    _numero_agencia= value;
+                }
+            }
+        }
+        public string Nome_Agencia { get; set; }
+
+        private double saldo;
+        public double Saldo
+        {
+            get 
+            { 
+                return saldo; 
+            }
+            set 
+            {
+                if(value < 0)
+                {
+                    return;
+                }
+                saldo = value;
+            }
+        }
+
+        // Constructor
+        public ContaCorrente(int numero_agencia, string conta)
+        {
+            Numero_Agencia = numero_agencia;
+            Conta = conta;
+        }
+
+        // Methods
         public bool Sacar(double valor)
         {
             if (saldo < valor)
@@ -58,6 +108,6 @@ namespace bytebank
                 return true;
             }
         }
-
+                
     }
 }
